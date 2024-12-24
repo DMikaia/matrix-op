@@ -10,8 +10,12 @@ impl Matrix {
         Self { rows, cols, table }
     }
 
+    pub fn in_bounds(&self, (i, j): (usize, usize)) -> bool {
+        i < self.rows && j < self.cols
+    }
+
     pub fn get_index(&self, (i, j): (usize, usize)) -> usize {
-        i + j
+        i * self.cols + j
     }
 
     pub fn display_matrix(&self) {
