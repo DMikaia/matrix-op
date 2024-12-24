@@ -1,3 +1,7 @@
+use matrix_op::Matrix;
+
 fn main() {
-    println!("Hello, world!");
+    let matrix: Matrix = Matrix::new(2, 3);
+
+    println!("{:?}", matrix);
 }
