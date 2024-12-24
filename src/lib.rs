@@ -1,30 +1,35 @@
+use std::fmt::{Debug, Display};
+
 #[derive(Debug)]
-pub struct Matrix {
+pub struct Matrix<T>
+where
+    T: Display,
+{
     rows: usize,
     cols: usize,
-    table: Vec<f64>,
+    table: Vec<T>,
 }
 
-impl Matrix {
-    pub fn new(rows: usize, cols: usize, table: Vec<f64>) -> Self {
+impl<T: Display> Matrix<T> {
+    pub fn new(rows: usize, cols: usize, table: Vec<T>) -> Self {
         Self { rows, cols, table }
     }
 
-    pub fn in_bounds(&self, (i, j): (usize, usize)) -> bool {
-        i < self.rows && j < self.cols
+    pub fn in_bounds(&self, (row, col): (usize, usize)) -> bool {
+        row < self.rows && col < self.cols
     }
 
-    pub fn get_index(&self, (i, j): (usize, usize)) -> usize {
-        i * self.cols + j
+    pub fn get_index(&self, (row, col): (usize, usize)) -> usize {
+        row * self.cols + col
     }
 
     pub fn display_matrix(&self) {
-        for i in 0..self.rows {
-            for j in 0..self.cols {
+        for row in 0..self.rows {
+            for col in 0..self.cols {
                 print!(
                     "{}{}",
-                    self.table[self.get_index((i, j))],
-                    if j + 1 == self.cols { "\n" } else { " " }
+                    self.table[self.get_index((row, col))],
+                    if col + 1 == self.cols { "\n" } else { " " }
                 );
             }
         }
