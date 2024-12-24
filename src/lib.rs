@@ -1,12 +1,17 @@
+use std::fmt::{Debug, Display};
+
 #[derive(Debug)]
-pub struct Matrix {
+pub struct Matrix<T>
+where
+    T: Display,
+{
     rows: usize,
     cols: usize,
-    table: Vec<f64>,
+    table: Vec<T>,
 }
 
-impl Matrix {
-    pub fn new(rows: usize, cols: usize, table: Vec<f64>) -> Self {
+impl<T: Display> Matrix<T> {
+    pub fn new(rows: usize, cols: usize, table: Vec<T>) -> Self {
         Self { rows, cols, table }
     }
 
