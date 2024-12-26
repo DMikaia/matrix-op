@@ -7,7 +7,7 @@ where
 {
     rows: usize,
     cols: usize,
-    table: Vec<T>,
+    pub table: Vec<T>,
 }
 
 impl<T: Display> Matrix<T> {
@@ -19,18 +19,28 @@ impl<T: Display> Matrix<T> {
         row < self.rows && col < self.cols
     }
 
-    pub fn get_index(&self, (row, col): (usize, usize)) -> usize {
-        row * self.cols + col
+    pub fn get_size(&self) -> (usize, usize) {
+        (self.rows, self.cols)
+    }
+
+    pub fn get_index(&self, (row, col): (usize, usize)) -> Option<usize> {
+        if !self.in_bounds((row, col)) {
+            None
+        } else {
+            Some(row * self.cols + col)
+        }
     }
 
     pub fn display_matrix(&self) {
         for row in 0..self.rows {
             for col in 0..self.cols {
-                print!(
-                    "{}{}",
-                    self.table[self.get_index((row, col))],
-                    if col + 1 == self.cols { "\n" } else { " " }
-                );
+                if let Some(index) = self.get_index((row, col)) {
+                    print!(
+                        "{}{}",
+                        self.table[index],
+                        if col + 1 == self.cols { "\n" } else { " " }
+                    );
+                }
             }
         }
     }
