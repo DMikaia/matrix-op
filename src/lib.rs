@@ -15,32 +15,32 @@ impl<T: Display> Matrix<T> {
         Self { rows, cols, table }
     }
 
-    pub fn in_bounds(&self, (row, col): (usize, usize)) -> bool {
-        row < self.rows && col < self.cols
-    }
-
     pub fn get_size(&self) -> (usize, usize) {
         (self.rows, self.cols)
     }
 
     pub fn get_index(&self, (row, col): (usize, usize)) -> Option<usize> {
-        if !self.in_bounds((row, col)) {
-            None
-        } else {
+        if self.in_bounds((row, col)) {
             Some(row * self.cols + col)
+        } else {
+            None
         }
     }
 
-    pub fn display_matrix(&self) {
-        for row in 0..self.rows {
-            for col in 0..self.cols {
-                if let Some(index) = self.get_index((row, col)) {
-                    print!(
-                        "{}{}",
-                        self.table[index],
-                        if col + 1 == self.cols { "\n" } else { " " }
-                    );
-                }
+    fn in_bounds(&self, (row, col): (usize, usize)) -> bool {
+        row < self.rows && col < self.cols
+    }
+}
+
+pub fn display_matrix<T: Display>(matrix: &Matrix<T>) {
+    for row in 0..matrix.rows {
+        for col in 0..matrix.cols {
+            if let Some(index) = matrix.get_index((row, col)) {
+                print!(
+                    "{}{}",
+                    matrix.table[index],
+                    if col + 1 == matrix.cols { "\n" } else { " " }
+                );
             }
         }
     }
