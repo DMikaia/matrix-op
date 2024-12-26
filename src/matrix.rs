@@ -31,3 +31,26 @@ impl<T: Display> Matrix<T> {
         row < self.rows && col < self.cols
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_get_size() {
+        let matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
+        assert_eq!((2usize, 2usize), matrix.get_size());
+    }
+
+    #[test]
+    fn test_get_index_success() {
+        let matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
+        assert_eq!(Some(1), matrix.get_index((0, 1)));
+    }
+
+    #[test]
+    fn test_get_index_failed() {
+        let matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
+        assert_eq!(None, matrix.get_index((0, 3)));
+    }
+}
