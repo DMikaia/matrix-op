@@ -27,6 +27,14 @@ impl<T: Display> Matrix<T> {
         }
     }
 
+    pub fn get(&self, (row, col): (usize, usize)) -> Option<&T> {
+        if let Some(index) = self.get_index((row, col)) {
+            self.table.get(index)
+        } else {
+            None
+        }
+    }
+
     fn in_bounds(&self, (row, col): (usize, usize)) -> bool {
         row < self.rows && col < self.cols
     }
@@ -52,5 +60,17 @@ mod test {
     fn test_get_index_failed() {
         let matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
         assert_eq!(None, matrix.get_index((0, 3)));
+    }
+
+    #[test]
+    fn test_get_success() {
+        let matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
+        assert_eq!(Some(&0.5), matrix.get((0, 1)));
+    }
+
+    #[test]
+    fn test_get_failed() {
+        let matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
+        assert_eq!(None, matrix.get((0, 3)));
     }
 }
