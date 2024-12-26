@@ -8,12 +8,8 @@ pub fn display_matrix<T: Display>(matrix: &Matrix<T>) {
 
     for row in 0..rows {
         for col in 0..cols {
-            if let Some(index) = matrix.get_index((row, col)) {
-                print!(
-                    "{}{}",
-                    matrix.table[index],
-                    if col + 1 == cols { "\n" } else { " " }
-                );
+            if let Some(value) = matrix.get((row, col)) {
+                print!("{}{}", value, if col + 1 == cols { "\n" } else { " " });
             }
         }
     }

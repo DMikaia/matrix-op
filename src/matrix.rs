@@ -7,7 +7,7 @@ where
 {
     rows: usize,
     cols: usize,
-    pub table: Vec<T>,
+    table: Vec<T>,
 }
 
 impl<T: Display> Matrix<T> {
