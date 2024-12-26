@@ -35,6 +35,15 @@ impl<T: Display> Matrix<T> {
         }
     }
 
+    pub fn push(&mut self, (row, col): (usize, usize), value: T) -> Result<(), String> {
+        if let Some(index) = self.get_index((row, col)) {
+            self.table[index] = value;
+            Ok(())
+        } else {
+            Err("Error: The row and col you provide is not in bounds.".to_string())
+        }
+    }
+
     fn in_bounds(&self, (row, col): (usize, usize)) -> bool {
         row < self.rows && col < self.cols
     }
@@ -72,5 +81,22 @@ mod test {
     fn test_get_failed() {
         let matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
         assert_eq!(None, matrix.get((0, 3)));
+    }
+
+    #[test]
+    fn test_push_success() {
+        let mut matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.0, 0.9, 0.75]);
+
+        assert_eq!(Ok(()), matrix.push((0, 1), 0.5));
+    }
+
+    #[test]
+    fn test_push_failed() {
+        let mut matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.0, 0.9, 0.75]);
+
+        assert_eq!(
+            Err("Error: The row and col you provide is not in bounds.".to_string()),
+            matrix.push((0, 3), 0.5)
+        );
     }
 }
