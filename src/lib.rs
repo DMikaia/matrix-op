@@ -1,4 +1,5 @@
 mod matrix;
+mod operations;
 
 pub use matrix::*;
 use std::fmt::Display;

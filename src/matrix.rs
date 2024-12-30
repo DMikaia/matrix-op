@@ -1,16 +1,13 @@
-use std::fmt::{Debug, Display};
+use std::fmt::Debug;
 
-#[derive(Debug)]
-pub struct Matrix<T>
-where
-    T: Display,
-{
+#[derive(Debug, PartialEq, Eq)]
+pub struct Matrix<T> {
     rows: usize,
     cols: usize,
     table: Vec<T>,
 }
 
-impl<T: Display> Matrix<T> {
+impl<T> Matrix<T> {
     pub fn new(rows: usize, cols: usize, table: Vec<T>) -> Self {
         Self { rows, cols, table }
     }
@@ -100,7 +97,7 @@ mod test {
         let mut matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.0, 0.9, 0.75]);
 
         assert_eq!(
-            Err("Error: The row and col you provide is not in bounds.".to_string()),
+            Err("Error: The row and column you have provided are not in range.".to_string()),
             matrix.push((0, 3), 0.5)
         );
     }
