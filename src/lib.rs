@@ -1,6 +1,8 @@
 mod matrix;
+mod operations;
 
 pub use matrix::*;
+pub use operations::*;
 use std::fmt::Display;
 
 pub fn display_matrix<T: Display>(matrix: &Matrix<T>) {
