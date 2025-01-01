@@ -1,7 +1,7 @@
 use crate::matrix::Matrix;
 use std::ops::Add;
 
-impl<T: Add<Output = T> + Copy> Matrix<T> {
+impl<T: Default + Add<Output = T> + Copy> Matrix<T> {
     pub fn add(&self, rhs: Self) -> Result<Matrix<T>, String> {
         if self.get_size() != rhs.get_size() {
             return Err("Error: both matrix most have the same row and column number.".to_string());

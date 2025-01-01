@@ -1,13 +1,21 @@
 use std::fmt::Debug;
 
-#[derive(Debug, PartialEq, Eq)]
-pub struct Matrix<T> {
+#[derive(Debug, PartialEq, Eq, Clone)]
+pub struct Matrix<T: Default + Clone> {
     rows: usize,
     cols: usize,
     table: Vec<T>,
 }
 
-impl<T> Matrix<T> {
+impl<T: Default + Clone> Matrix<T> {
+    pub fn new(rows: usize, cols: usize) -> Self {
+        Self {
+            rows,
+            cols,
+            table: vec![T::default(); rows * cols],
+        }
+    }
+
     pub fn create_with(rows: usize, cols: usize, table: Vec<T>) -> Self {
         Self { rows, cols, table }
     }
