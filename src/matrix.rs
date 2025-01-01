@@ -1,14 +1,22 @@
 use std::fmt::Debug;
 
-#[derive(Debug, PartialEq, Eq)]
-pub struct Matrix<T> {
+#[derive(Debug, PartialEq, Eq, Clone)]
+pub struct Matrix<T: Default + Clone> {
     rows: usize,
     cols: usize,
     table: Vec<T>,
 }
 
-impl<T> Matrix<T> {
-    pub fn new(rows: usize, cols: usize, table: Vec<T>) -> Self {
+impl<T: Default + Clone> Matrix<T> {
+    pub fn new(rows: usize, cols: usize) -> Self {
+        Self {
+            rows,
+            cols,
+            table: vec![T::default(); rows * cols],
+        }
+    }
+
+    pub fn create_with(rows: usize, cols: usize, table: Vec<T>) -> Self {
         Self { rows, cols, table }
     }
 
@@ -52,49 +60,49 @@ mod test {
 
     #[test]
     fn test_get_size() {
-        let matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
+        let matrix: Matrix<f64> = Matrix::create_with(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
 
         assert_eq!((2usize, 2usize), matrix.get_size());
     }
 
     #[test]
     fn test_get_index_success() {
-        let matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
+        let matrix: Matrix<f64> = Matrix::create_with(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
 
         assert_eq!(Some(1), matrix.get_index((0, 1)));
     }
 
     #[test]
     fn test_get_index_failed() {
-        let matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
+        let matrix: Matrix<f64> = Matrix::create_with(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
 
         assert_eq!(None, matrix.get_index((0, 3)));
     }
 
     #[test]
     fn test_get_success() {
-        let matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
+        let matrix: Matrix<f64> = Matrix::create_with(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
 
         assert_eq!(Some(&0.5), matrix.get((0, 1)));
     }
 
     #[test]
     fn test_get_failed() {
-        let matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
+        let matrix: Matrix<f64> = Matrix::create_with(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
 
         assert_eq!(None, matrix.get((0, 3)));
     }
 
     #[test]
     fn test_push_success() {
-        let mut matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.0, 0.9, 0.75]);
+        let mut matrix: Matrix<f64> = Matrix::create_with(2, 2, vec![0.2, 0.0, 0.9, 0.75]);
 
         assert_eq!(Ok(()), matrix.push((0, 1), 0.5));
     }
 
     #[test]
     fn test_push_failed() {
-        let mut matrix: Matrix<f64> = Matrix::new(2, 2, vec![0.2, 0.0, 0.9, 0.75]);
+        let mut matrix: Matrix<f64> = Matrix::create_with(2, 2, vec![0.2, 0.0, 0.9, 0.75]);
 
         assert_eq!(
             Err("Error: The row and column you have provided are not in range.".to_string()),
