@@ -2,6 +2,7 @@ use crate::matrix::Matrix;
 use std::ops::{Add, Mul};
 
 impl<T: Add<Output = T> + Mul<Output = T> + Copy + Default> Matrix<T> {
+    /// This function allows you to sum two matrices only if they have the same rows and columns.
     pub fn add_to(&self, rhs: Self) -> Result<Matrix<T>, String> {
         if self.get_size() != rhs.get_size() {
             return Err("Error: both matrix most have the same row and column number.".to_string());
@@ -20,6 +21,8 @@ impl<T: Add<Output = T> + Mul<Output = T> + Copy + Default> Matrix<T> {
         Ok(Matrix::create_with(rows, cols, table))
     }
 
+    /// This function multiplies two matrices only if the number of columns in the
+    /// first matrix is equal to the number of rows in the second matrix.
     pub fn multiply_to(&self, rhs: Self) -> Result<Matrix<T>, String> {
         let (rows_a, cols_a) = self.get_size();
         let (rows_b, cols_b) = rhs.get_size();
