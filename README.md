@@ -1,3 +1,3 @@
 # matrix-op
 
-This project is a small package used for matrix operation and manipulation.
+This project is a small project used for matrix operation and manipulation.
