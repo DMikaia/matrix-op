@@ -2,7 +2,7 @@ use crate::matrix::Matrix;
 use std::ops::{Add, Mul};
 
 impl<T: Add<Output = T> + Mul<Output = T> + Copy + Default> Matrix<T> {
-    pub fn add(&self, rhs: Self) -> Result<Matrix<T>, String> {
+    pub fn add_to(&self, rhs: Self) -> Result<Matrix<T>, String> {
         if self.get_size() != rhs.get_size() {
             return Err("Error: both matrix most have the same row and column number.".to_string());
         }
@@ -60,7 +60,7 @@ mod test {
 
         assert_eq!(
             Ok(Matrix::create_with(2, 2, vec![10; 4])),
-            matrix_a.add(matrix_b)
+            matrix_a.add_to(matrix_b)
         );
     }
 
@@ -71,7 +71,7 @@ mod test {
 
         assert_eq!(
             Err("Error: both matrix most have the same row and column number.".to_string()),
-            matrix_a.add(matrix_b)
+            matrix_a.add_to(matrix_b)
         );
     }
 
