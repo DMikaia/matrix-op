@@ -17,7 +17,7 @@ impl<T: Add<Output = T> + Copy> Matrix<T> {
             }
         }
 
-        Ok(Matrix::new(rows, cols, table))
+        Ok(Matrix::create_with(rows, cols, table))
     }
 }
 
@@ -27,16 +27,19 @@ mod test {
 
     #[test]
     fn add_succeed() {
-        let matrix_a: Matrix<i64> = Matrix::new(2, 2, vec![2, 5, 9, 5]);
-        let matrix_b: Matrix<i64> = Matrix::new(2, 2, vec![8, 5, 1, 5]);
+        let matrix_a: Matrix<i64> = Matrix::create_with(2, 2, vec![2, 5, 9, 5]);
+        let matrix_b: Matrix<i64> = Matrix::create_with(2, 2, vec![8, 5, 1, 5]);
 
-        assert_eq!(Ok(Matrix::new(2, 2, vec![10; 4])), matrix_a.add(matrix_b));
+        assert_eq!(
+            Ok(Matrix::create_with(2, 2, vec![10; 4])),
+            matrix_a.add(matrix_b)
+        );
     }
 
     #[test]
     fn add_failed() {
-        let matrix_a: Matrix<i64> = Matrix::new(2, 2, vec![2, 5, 9, 5]);
-        let matrix_b: Matrix<i64> = Matrix::new(2, 3, vec![8, 5, 1, 5, 4, 2]);
+        let matrix_a: Matrix<i64> = Matrix::create_with(2, 2, vec![2, 5, 9, 5]);
+        let matrix_b: Matrix<i64> = Matrix::create_with(2, 3, vec![8, 5, 1, 5, 4, 2]);
 
         assert_eq!(
             Err("Error: both matrix most have the same row and column number.".to_string()),
