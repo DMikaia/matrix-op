@@ -3,16 +3,16 @@ use std::ops::{Add, Mul};
 
 impl<T: Add<Output = T> + Mul<Output = T> + Copy + Default> Matrix<T> {
     /// This function allows you to sum two matrices only if they have the same rows and columns.
-    pub fn add_to(&self, rhs: Self) -> Result<Matrix<T>, String> {
+    pub fn add_to(&self, rhs: Self) -> Result<Matrix<T>, &'static str> {
         if self.get_size() != rhs.get_size() {
-            return Err("Error: both matrix most have the same row and column number.".to_string());
+            return Err("Error: both matrix most have the same row and column number.");
         }
         let (rows, cols) = self.get_size();
 
         let mut table = vec![];
         for row in 0..rows {
             for col in 0..cols {
-                if let (Some(&a), Some(&b)) = (self.get((row, col)), rhs.get((row, col))) {
+                if let (Some(&a), Some(&b)) = (self.get(row, col), rhs.get(row, col)) {
                     table.push(a + b);
                 }
             }
@@ -23,14 +23,13 @@ impl<T: Add<Output = T> + Mul<Output = T> + Copy + Default> Matrix<T> {
 
     /// This function multiplies two matrices only if the number of columns in the
     /// first matrix is equal to the number of rows in the second matrix.
-    pub fn multiply_to(&self, rhs: Self) -> Result<Matrix<T>, String> {
+    pub fn multiply_to(&self, rhs: Self) -> Result<Matrix<T>, &'static str> {
         let (rows_a, cols_a) = self.get_size();
         let (rows_b, cols_b) = rhs.get_size();
 
         if cols_a != rows_b {
             return Err(
-                "Error: The column of the first matrix most be equal to the row of the second one."
-                    .to_string(),
+                "Error: The column of the first matrix most be equal to the row of the second one.",
             );
         }
 
@@ -40,7 +39,7 @@ impl<T: Add<Output = T> + Mul<Output = T> + Copy + Default> Matrix<T> {
                 let mut value = T::default();
 
                 for i in 0..cols_a {
-                    if let (Some(&a), Some(&b)) = (self.get((row_a, i)), rhs.get((i, col_b))) {
+                    if let (Some(&a), Some(&b)) = (self.get(row_a, i), rhs.get(i, col_b)) {
                         value = value + (a * b);
                     }
                 }
@@ -73,7 +72,7 @@ mod test {
         let matrix_b: Matrix<i64> = Matrix::create_with(2, 3, vec![8, 5, 1, 5, 4, 2]);
 
         assert_eq!(
-            Err("Error: both matrix most have the same row and column number.".to_string()),
+            Err("Error: both matrix most have the same row and column number."),
             matrix_a.add_to(matrix_b)
         );
     }
@@ -97,7 +96,6 @@ mod test {
         assert_eq!(
             Err(
                 "Error: The column of the first matrix most be equal to the row of the second one."
-                    .to_string()
             ),
             matrix_a.multiply_to(matrix_b)
         );
