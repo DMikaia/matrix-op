@@ -9,7 +9,7 @@ pub fn display_matrix<T: Default + Clone + Display>(matrix: &Matrix<T>) {
 
     for row in 0..rows {
         for col in 0..cols {
-            if let Some(value) = matrix.get((row, col)) {
+            if let Some(value) = matrix.get(row, col) {
                 print!("{}{}", value, if col + 1 == cols { "\n" } else { " " });
             }
         }

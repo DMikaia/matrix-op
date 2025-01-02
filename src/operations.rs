@@ -12,7 +12,7 @@ impl<T: Add<Output = T> + Mul<Output = T> + Copy + Default> Matrix<T> {
         let mut table = vec![];
         for row in 0..rows {
             for col in 0..cols {
-                if let (Some(&a), Some(&b)) = (self.get((row, col)), rhs.get((row, col))) {
+                if let (Some(&a), Some(&b)) = (self.get(row, col), rhs.get(row, col)) {
                     table.push(a + b);
                 }
             }
@@ -39,7 +39,7 @@ impl<T: Add<Output = T> + Mul<Output = T> + Copy + Default> Matrix<T> {
                 let mut value = T::default();
 
                 for i in 0..cols_a {
-                    if let (Some(&a), Some(&b)) = (self.get((row_a, i)), rhs.get((i, col_b))) {
+                    if let (Some(&a), Some(&b)) = (self.get(row_a, i), rhs.get(i, col_b)) {
                         value = value + (a * b);
                     }
                 }
