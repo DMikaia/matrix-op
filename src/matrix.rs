@@ -46,12 +46,12 @@ impl<T: Default + Clone> Matrix<T> {
     }
 
     /// This will push a new element to a specific row and column only if they are valid.
-    pub fn push(&mut self, (row, col): (usize, usize), value: T) -> Result<(), String> {
+    pub fn push(&mut self, (row, col): (usize, usize), value: T) -> Result<(), &'static str> {
         if let Some(index) = self.get_index((row, col)) {
             self.table[index] = value;
             Ok(())
         } else {
-            Err("Error: The row and column you have provided are not in range.".to_string())
+            Err("Error: The row and column you have provided are not in range.")
         }
     }
 
@@ -112,7 +112,7 @@ mod test {
         let mut matrix: Matrix<f64> = Matrix::create_with(2, 2, vec![0.2, 0.0, 0.9, 0.75]);
 
         assert_eq!(
-            Err("Error: The row and column you have provided are not in range.".to_string()),
+            Err("Error: The row and column you have provided are not in range."),
             matrix.push((0, 3), 0.5)
         );
     }
