@@ -3,7 +3,7 @@ use std::ops::{Add, Mul};
 
 impl<T: Add<Output = T> + Mul<Output = T> + Copy + Default> Matrix<T> {
     /// This function allows you to sum two matrices only if they have the same rows and columns.
-    pub fn add_to(&self, rhs: Self) -> Result<Matrix<T>, &'static str> {
+    pub fn add_to(&self, rhs: &Self) -> Result<Matrix<T>, &'static str> {
         if self.get_size() != rhs.get_size() {
             return Err("Error: both matrix most have the same row and column number.");
         }
@@ -23,7 +23,7 @@ impl<T: Add<Output = T> + Mul<Output = T> + Copy + Default> Matrix<T> {
 
     /// This function multiplies two matrices only if the number of columns in the
     /// first matrix is equal to the number of rows in the second matrix.
-    pub fn multiply_to(&self, rhs: Self) -> Result<Matrix<T>, &'static str> {
+    pub fn multiply_to(&self, rhs: &Self) -> Result<Matrix<T>, &'static str> {
         let (rows_a, cols_a) = self.get_size();
         let (rows_b, cols_b) = rhs.get_size();
 
@@ -62,7 +62,7 @@ mod test {
 
         assert_eq!(
             Ok(Matrix::create_with(2, 2, vec![10; 4])),
-            matrix_a.add_to(matrix_b)
+            matrix_a.add_to(&matrix_b)
         );
     }
 
@@ -73,7 +73,7 @@ mod test {
 
         assert_eq!(
             Err("Error: both matrix most have the same row and column number."),
-            matrix_a.add_to(matrix_b)
+            matrix_a.add_to(&matrix_b)
         );
     }
 
@@ -84,7 +84,7 @@ mod test {
 
         assert_eq!(
             Ok(Matrix::create_with(1, 2, vec![38.0, 46.0])),
-            matrix_a.multiply_to(matrix_b)
+            matrix_a.multiply_to(&matrix_b)
         );
     }
 
@@ -97,7 +97,7 @@ mod test {
             Err(
                 "Error: The column of the first matrix most be equal to the row of the second one."
             ),
-            matrix_a.multiply_to(matrix_b)
+            matrix_a.multiply_to(&matrix_b)
         );
     }
 }
