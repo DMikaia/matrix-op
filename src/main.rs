@@ -10,7 +10,13 @@ fn main() {
 
     display_matrix(&matrix_b);
 
-    if let Ok(matrix_c) = matrix_a.multiply_to(matrix_b) {
+    if let Ok(matrix_c) = matrix_a.add_to(&matrix_b) {
+        println!();
+
+        display_matrix(&matrix_c);
+    }
+
+    if let Ok(matrix_c) = matrix_a.multiply_to(&matrix_b) {
         println!();
 
         display_matrix(&matrix_c);
