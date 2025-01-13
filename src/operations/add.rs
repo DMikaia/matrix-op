@@ -1,29 +1,36 @@
 use crate::matrix::Matrix;
 use std::ops::Add;
 
+fn add_matrices<T: Add<Output = T> + Copy + Default>(
+    lhs: &Matrix<T>,
+    rhs: &Matrix<T>,
+) -> Matrix<T> {
+    assert_eq!(
+        lhs.get_size(),
+        rhs.get_size(),
+        "Both matrix should have the same row and column number."
+    );
+
+    let (rows, cols) = lhs.get_size();
+
+    let mut result: Matrix<T> = Matrix::new(rows, cols);
+
+    for row in 0..rows {
+        for col in 0..cols {
+            if let (Some(&a), Some(&b)) = (lhs.get(row, col), rhs.get(row, col)) {
+                result.push((row, col), a + b).unwrap();
+            }
+        }
+    }
+
+    result
+}
+
 impl<'a, 'b, T: Add<Output = T> + Copy + Default> Add<&'b Matrix<T>> for &'a Matrix<T> {
     type Output = Matrix<T>;
 
     fn add(self, rhs: &'b Matrix<T>) -> Self::Output {
-        assert_eq!(
-            self.get_size(),
-            rhs.get_size(),
-            "Both matrix should have the same row and column number."
-        );
-
-        let (rows, cols) = self.get_size();
-
-        let mut result: Matrix<T> = Matrix::new(rows, cols);
-
-        for row in 0..rows {
-            for col in 0..cols {
-                if let (Some(&a), Some(&b)) = (self.get(row, col), rhs.get(row, col)) {
-                    result.push((row, col), a + b).unwrap();
-                }
-            }
-        }
-
-        result
+        add_matrices(self, rhs)
     }
 }
 
@@ -31,25 +38,7 @@ impl<T: Add<Output = T> + Copy + Default> Add for Matrix<T> {
     type Output = Matrix<T>;
 
     fn add(self, rhs: Self) -> Self::Output {
-        assert_eq!(
-            self.get_size(),
-            rhs.get_size(),
-            "Both matrix should have the same row and column number."
-        );
-
-        let (rows, cols) = self.get_size();
-
-        let mut result: Matrix<T> = Matrix::new(rows, cols);
-
-        for row in 0..rows {
-            for col in 0..cols {
-                if let (Some(&a), Some(&b)) = (self.get(row, col), rhs.get(row, col)) {
-                    result.push((row, col), a + b).unwrap();
-                }
-            }
-        }
-
-        result
+        add_matrices(&self, &rhs)
     }
 }
 
