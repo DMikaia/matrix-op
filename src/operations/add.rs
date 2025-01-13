@@ -27,27 +27,6 @@ impl<'a, 'b, T: Add<Output = T> + Copy + Default> Add<&'b Matrix<T>> for &'a Mat
     }
 }
 
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    #[test]
-    fn add_consume() {
-        let matrix_a: Matrix<i64> = Matrix::create_with(2, 2, vec![2, 5, 9, 5]);
-        let matrix_b: Matrix<i64> = Matrix::create_with(2, 2, vec![8, 5, 1, 5]);
-
-        assert_eq!(Matrix::create_with(2, 2, vec![10; 4]), matrix_a + matrix_b);
-    }
-
-    #[test]
-    fn add_ref() {
-        let matrix_a: Matrix<i64> = Matrix::create_with(2, 2, vec![2, 5, 9, 5]);
-        let matrix_b: Matrix<i64> = Matrix::create_with(2, 2, vec![8, 5, 1, 5]);
-
-        assert_eq!(Matrix::create_with(2, 2, vec![10; 4]), matrix_a + matrix_b);
-    }
-}
-
 impl<T: Add<Output = T> + Copy + Default> Add for Matrix<T> {
     type Output = Matrix<T>;
 
@@ -71,5 +50,26 @@ impl<T: Add<Output = T> + Copy + Default> Add for Matrix<T> {
         }
 
         result
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn add_consume() {
+        let matrix_a: Matrix<i64> = Matrix::create_with(2, 2, vec![2, 5, 9, 5]);
+        let matrix_b: Matrix<i64> = Matrix::create_with(2, 2, vec![8, 5, 1, 5]);
+
+        assert_eq!(Matrix::create_with(2, 2, vec![10; 4]), matrix_a + matrix_b);
+    }
+
+    #[test]
+    fn add_ref() {
+        let matrix_a: Matrix<i64> = Matrix::create_with(2, 2, vec![2, 5, 9, 5]);
+        let matrix_b: Matrix<i64> = Matrix::create_with(2, 2, vec![8, 5, 1, 5]);
+
+        assert_eq!(Matrix::create_with(2, 2, vec![10; 4]), matrix_a + matrix_b);
     }
 }
