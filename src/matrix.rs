@@ -10,6 +10,12 @@ pub struct Matrix<T: Default + Clone> {
 impl<T: Default + Clone> Matrix<T> {
     /// This will create a matrix with a table that will contain a default value for each element
     pub fn new(rows: usize, cols: usize) -> Self {
+        assert_ne!(
+            (rows, cols),
+            (0usize, 0usize),
+            "both row and column should not equal to zero."
+        );
+
         Self {
             rows,
             cols,
@@ -19,6 +25,12 @@ impl<T: Default + Clone> Matrix<T> {
 
     /// This will create a matrix with an already defined table
     pub fn create_with(rows: usize, cols: usize, table: Vec<T>) -> Self {
+        assert_ne!(
+            (rows, cols),
+            (0usize, 0usize),
+            "both row and column should not equal to zero."
+        );
+
         Self { rows, cols, table }
     }
 
