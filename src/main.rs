@@ -12,13 +12,9 @@ fn main() {
 
     display_matrix(&matrix_b);
 
-    match matrix_a.add_to(&matrix_b) {
-        Ok(matrix_c) => {
-            println!();
-            display_matrix(&matrix_c);
-        }
-        Err(e) => eprintln!("{}\n", e),
-    }
+    let matrix_c = &matrix_a + &matrix_b;
+    println!();
+    display_matrix(&matrix_c);
 
     match matrix_a.multiply_to(&matrix_b) {
         Ok(matrix_c) => {

@@ -2,6 +2,7 @@ mod matrix;
 mod operations;
 
 pub use matrix::*;
+pub use operations::*;
 use std::fmt::Display;
 
 pub fn display_matrix<T: Default + Clone + Display>(matrix: &Matrix<T>) {
