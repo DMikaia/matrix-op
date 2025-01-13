@@ -1,3 +1,6 @@
+pub mod add;
+pub mod mul;
+
 use crate::matrix::Matrix;
 use std::ops::{Add, Mul};
 
