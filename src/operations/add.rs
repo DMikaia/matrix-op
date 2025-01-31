@@ -47,7 +47,7 @@ mod test {
     use super::*;
 
     #[test]
-    fn add_consume() {
+    fn test_add_consume() {
         let matrix_a: Matrix<i64> = Matrix::create_with(2, 2, vec![2, 5, 9, 5]);
         let matrix_b: Matrix<i64> = Matrix::create_with(2, 2, vec![8, 5, 1, 5]);
 
@@ -55,10 +55,13 @@ mod test {
     }
 
     #[test]
-    fn add_ref() {
+    fn test_add_ref() {
         let matrix_a: Matrix<i64> = Matrix::create_with(2, 2, vec![2, 5, 9, 5]);
         let matrix_b: Matrix<i64> = Matrix::create_with(2, 2, vec![8, 5, 1, 5]);
 
-        assert_eq!(Matrix::create_with(2, 2, vec![10; 4]), &matrix_a + &matrix_b);
+        assert_eq!(
+            Matrix::create_with(2, 2, vec![10; 4]),
+            &matrix_a + &matrix_b
+        );
     }
 }

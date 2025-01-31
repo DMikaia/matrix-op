@@ -47,7 +47,7 @@ mod test {
     use super::*;
 
     #[test]
-    fn sub_consume() {
+    fn test_sub_consume() {
         let matrix_a: Matrix<i64> = Matrix::create_with(2, 2, vec![8, 5, 1, 5]);
         let matrix_b: Matrix<i64> = Matrix::create_with(2, 2, vec![8, 5, 1, 5]);
 
@@ -55,7 +55,7 @@ mod test {
     }
 
     #[test]
-    fn sub_ref() {
+    fn test_sub_ref() {
         let matrix_a: Matrix<i64> = Matrix::create_with(2, 2, vec![8, 5, 1, 5]);
         let matrix_b: Matrix<i64> = Matrix::create_with(2, 2, vec![8, 5, 1, 5]);
 

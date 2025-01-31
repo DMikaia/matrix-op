@@ -53,7 +53,7 @@ mod test {
     use super::*;
 
     #[test]
-    fn mul_consume() {
+    fn test_mul_consume() {
         let matrix_a: Matrix<f64> = Matrix::create_with(1, 3, vec![3.0, 1.0, 4.0]);
         let matrix_b: Matrix<f64> = Matrix::create_with(3, 2, vec![4.0, 3.0, 2.0, 5.0, 6.0, 8.0]);
 
@@ -64,7 +64,7 @@ mod test {
     }
 
     #[test]
-    fn mul_ref() {
+    fn test_mul_ref() {
         let matrix_a: Matrix<f64> = Matrix::create_with(1, 3, vec![3.0, 1.0, 4.0]);
         let matrix_b: Matrix<f64> = Matrix::create_with(3, 2, vec![4.0, 3.0, 2.0, 5.0, 6.0, 8.0]);
 

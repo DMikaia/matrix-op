@@ -31,6 +31,12 @@ impl<T: Default + Clone> Matrix<T> {
             "both row and column should not equal to zero."
         );
 
+        assert_ne!(
+            table.len(),
+            0usize,
+            "The provided table should not be empty"
+        );
+
         Self { rows, cols, table }
     }
 

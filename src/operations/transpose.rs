@@ -22,7 +22,7 @@ mod test {
     use super::*;
 
     #[test]
-    fn transpose() {
+    fn test_transpose() {
         let input = Matrix::create_with(2, 3, vec![1, 2, 3, 4, 5, 6]);
 
         assert_eq!(
