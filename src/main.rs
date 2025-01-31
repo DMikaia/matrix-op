@@ -6,17 +6,25 @@ fn main() {
     let matrix_b: Matrix<f64> =
         Matrix::create_with(3, 3, vec![3.0, 1.0, 5.0, 6.0, 9.0, 7.0, 2.0, 5.0, 9.0]);
 
+    println!("Matrix A:\n");
     display_matrix(&matrix_a);
 
-    println!();
-
+    println!("\nMatrix B:\n");
     display_matrix(&matrix_b);
 
-    let matrix_c = &matrix_a + &matrix_b;
-    println!();
-    display_matrix(&matrix_c);
+    println!("\nTransposing the matrix A:\n");
+    let matrix_transpose = matrix_a.transpose();
+    display_matrix(&matrix_transpose);
 
-    let matrix_c = matrix_a * matrix_b;
-    println!();
-    display_matrix(&matrix_c);
+    println!("\nAdding matrix A and B:\n");
+    let matrix_add = &matrix_a + &matrix_b;
+    display_matrix(&matrix_add);
+
+    println!("\nSubstracting matrix A and B:\n");
+    let matrix_sub = &matrix_a - &matrix_b;
+    display_matrix(&matrix_sub);
+
+    println!("\nMultiplying matrix A and B:\n");
+    let matrix_mul = &matrix_a * &matrix_b;
+    display_matrix(&matrix_mul);
 }
