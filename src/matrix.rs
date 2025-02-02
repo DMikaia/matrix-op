@@ -84,6 +84,24 @@ mod test {
     use super::*;
 
     #[test]
+    #[should_panic]
+    fn test_new_panic() {
+        let _: Matrix<f64> = Matrix::new(0, 0);
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_create_with_size_panic() {
+        let _: Matrix<f64> = Matrix::create_with(0, 0, vec![1.0, 2.0]);
+    }
+
+    #[test]
+    #[should_panic]
+    fn test_create_with_vec_panic() {
+        let _: Matrix<f64> = Matrix::create_with(2, 2, vec![]);
+    }
+
+    #[test]
     fn test_get_size() {
         let matrix: Matrix<f64> = Matrix::create_with(2, 2, vec![0.2, 0.5, 0.9, 0.75]);
 
