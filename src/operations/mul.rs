@@ -53,6 +53,15 @@ mod test {
     use super::*;
 
     #[test]
+    #[should_panic]
+    fn test_mul_panic() {
+        let matrix_a: Matrix<i64> = Matrix::create_with(1, 1, vec![9, 1]);
+        let matrix_b: Matrix<i64> = Matrix::create_with(2, 2, vec![8, 5, 1, 5]);
+
+        let _ = matrix_a * matrix_b;
+    }
+
+    #[test]
     fn test_mul_consume() {
         let matrix_a: Matrix<f64> = Matrix::create_with(1, 3, vec![3.0, 1.0, 4.0]);
         let matrix_b: Matrix<f64> = Matrix::create_with(3, 2, vec![4.0, 3.0, 2.0, 5.0, 6.0, 8.0]);

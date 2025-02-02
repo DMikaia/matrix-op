@@ -47,6 +47,15 @@ mod test {
     use super::*;
 
     #[test]
+    #[should_panic]
+    fn test_sub_panic() {
+        let matrix_a: Matrix<i64> = Matrix::create_with(1, 1, vec![2, 5]);
+        let matrix_b: Matrix<i64> = Matrix::create_with(2, 2, vec![8, 5, 1, 5]);
+
+        let _ = matrix_a - matrix_b;
+    }
+
+    #[test]
     fn test_sub_consume() {
         let matrix_a: Matrix<i64> = Matrix::create_with(2, 2, vec![8, 5, 1, 5]);
         let matrix_b: Matrix<i64> = Matrix::create_with(2, 2, vec![8, 5, 1, 5]);
